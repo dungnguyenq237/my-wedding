@@ -117,19 +117,8 @@ src/
 | Invalid map URL | Hide the map action; event address remains readable. |
 | Reduced-motion preference | Preserve content and controls; remove only decorative motion. |
 
-## Testing strategy
+## Delivery focus
 
-- Unit-test date formatting/countdown behavior, including the Ho Chi Minh timezone and post-event state.
-- Unit-test RSVP state transitions and the two outcome panels.
-- Validate the content object with TypeScript and a small runtime schema.
-- Test WebGL support detection and fallback rendering without requiring a real GPU in test environments.
-- Add responsive smoke coverage for critical sections and keyboard navigation.
-- Run lint, typecheck, unit tests, production build, and manual mobile visual checks before handoff.
-
-## Acceptance criteria
-
-- Visitors can read all wedding information and use RSVP on a modern phone without a WebGL-capable device.
-- The countdown accurately targets 18:00, 24 October 2026, Vietnam time.
-- The 3D invitation feels like a polished event moment and does not block page content, rendering, or interaction.
-- RSVP displays the correct attending or unable-to-attend result without sending data anywhere.
-- Content can be swapped from mock data to real names, photos, venues, maps, and a bank QR by editing one typed content module.
+- Prioritize visual polish, interaction feel, and real-device mobile review over a formal automated test suite.
+- Before handoff, run the production build and typecheck, then inspect the page manually at 320px, 375px, 768px, 1024px, and 1440px widths.
+- Verify the countdown, RSVP outcomes, WebGL fallback, touch controls, and reduced-motion mode manually as part of visual QA.
