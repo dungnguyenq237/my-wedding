@@ -93,21 +93,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--terracotta); ou
 .invitation-section { background: linear-gradient(150deg, #f1e2cf, var(--paper) 46%, #f6eee5); }
 .invitation-section .section-heading { margin-bottom: 2rem; }
 .invitation { display: grid; gap: 2rem; margin-inline: auto; max-width: 67rem; }
-.invitation__stage { align-items: center; background: rgb(255 255 255 / 46%); display: grid; min-height: 24rem; overflow: hidden; position: relative; }
+.invitation__stage { align-items: center; background: radial-gradient(circle at 50% 40%, rgb(255 255 255 / 84%), rgb(234 209 183 / 48%)); display: grid; min-height: 28rem; overflow: hidden; position: relative; }
 .invitation__stage canvas { height: 100% !important; left: 0; position: absolute !important; top: 0; width: 100% !important; }
 .invitation__control { bottom: 1.25rem; left: 50%; position: absolute; transform: translateX(-50%); z-index: 1; }
 .invitation__control:hover { transform: translateX(-50%) translateY(-2px); }
-.invitation-fallback { display: grid; justify-items: center; padding: 2rem 1rem; position: relative; width: 100%; }
-.invitation-fallback__envelope { align-items: center; background: var(--terracotta); color: var(--white); display: flex; font-family: Lora, Georgia, serif; height: 12.5rem; justify-content: center; letter-spacing: .08em; max-width: 20rem; transform: rotate(-3deg); transition: transform .55s cubic-bezier(.22,1,.36,1); width: 85%; }
-.invitation-fallback__card { background: #fffaf2; box-shadow: 0 15px 30px rgb(59 45 38 / 16%); display: grid; gap: .65rem; max-width: 17rem; padding: 1.7rem 1.3rem; text-align: center; transform: translateY(-8.2rem) rotate(2deg); transition: transform .55s cubic-bezier(.22,1,.36,1); width: 78%; }
-.invitation-fallback--open .invitation-fallback__envelope { transform: rotate(-8deg) translateY(1.5rem); }
-.invitation-fallback--open .invitation-fallback__card { transform: translateY(-12.7rem) rotate(0deg); }
-.invitation-fallback__card p, .invitation__details > p { color: var(--terracotta); font-size: .68rem; letter-spacing: .12em; margin: 0; text-transform: uppercase; }
-.invitation-fallback__card h3, .invitation__details h3 { font-family: Lora, Georgia, serif; font-size: 1.7rem; font-weight: 500; letter-spacing: -.06em; margin: 0; }
-.invitation-fallback__card strong, .invitation__details strong { font-family: Lora, Georgia, serif; font-size: 1.18rem; font-weight: 500; }
-.invitation-fallback__card i, .invitation__details i { color: var(--terracotta); font-weight: 400; }
-.invitation-fallback__card span, .invitation-fallback__card small { font-size: .72rem; line-height: 1.5; }
-.invitation-fallback > .button { margin-top: -6rem; position: relative; z-index: 1; }
+.invitation__details > p { color: var(--terracotta); font-size: .68rem; letter-spacing: .12em; margin: 0; text-transform: uppercase; }
+.invitation__details h3 { font-family: Lora, Georgia, serif; font-size: 1.7rem; font-weight: 500; letter-spacing: -.06em; margin: 0; }
+.invitation__details strong { font-family: Lora, Georgia, serif; font-size: 1.18rem; font-weight: 500; }
+.invitation__details i { color: var(--terracotta); font-weight: 400; }
 .invitation__details { align-content: center; display: grid; gap: 1rem; padding: .4rem 0; text-align: center; }
 .invitation__families { display: grid; font-size: .76rem; gap: .4rem; line-height: 1.4; }
 .invitation__details time, .invitation__details > span { font-size: .85rem; }
@@ -157,7 +150,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--terracotta); ou
   .event-card dl { grid-template-columns: 1fr 1.3fr; }
   .event-card a { align-self: end; margin: 0; }
   .invitation { gap: 3rem; grid-template-columns: 1.25fr .75fr; }
-  .invitation__stage { min-height: 32rem; }
+  .invitation__stage { min-height: 34rem; }
   .invitation__details { text-align: left; }
   .rsvp__choices { grid-template-columns: 1fr 1fr; }
 }
