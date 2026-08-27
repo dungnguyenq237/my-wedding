@@ -26,7 +26,7 @@ export function RSVP() {
       )}
       {response === 'unableToAttend' && (
         <div className="rsvp__outcome rsvp__outcome--no" role="status">
-          <img className="rsvp__qr" src={`${import.meta.env.BASE_URL}wedding-qr.png`} alt="QR mừng cưới Techcombank" />
+          <img className="rsvp__qr" src="/my-wedding/wedding-qr.png" alt="QR mừng cưới Techcombank" />
           <p>Hãy gửi cho chúng tớ những lời chúc tốt đẹp nếu bạn không thể có mặt.</p>
         </div>
       )}
