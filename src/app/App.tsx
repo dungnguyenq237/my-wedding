@@ -1,4 +1,4 @@
-import { CalendarDays, ChevronDown, MapPin, Navigation } from "lucide-react";
+import { CalendarDays, MapPin, Navigation } from "lucide-react";
 import gsap from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
 import { wedding } from "../content/wedding";
