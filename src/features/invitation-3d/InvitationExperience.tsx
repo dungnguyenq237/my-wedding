@@ -41,7 +41,7 @@ export function InvitationExperience({ invitation, events }: InvitationExperienc
           </Suspense>
         )}
         <button className="button button--dark invitation__control" onClick={() => setIsOpen((open) => !open)} type="button">
-          {isOpen ? 'Thu gọn thiệp' : 'Khám phá thiệp'}
+          {isOpen ? 'Đóng thiệp' : 'Mở thiệp'}
         </button>
       </div>
       <article className="invitation__details">

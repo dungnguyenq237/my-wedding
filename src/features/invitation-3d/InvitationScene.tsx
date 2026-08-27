@@ -1,88 +1,99 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, OrbitControls, RoundedBox, Text } from '@react-three/drei'
+import { RoundedBox, Text } from '@react-three/drei'
 import { useRef } from 'react'
-import type { Group, Mesh } from 'three'
+import { Shape, type Group } from 'three'
 
 interface InvitationSceneProps {
   isOpen: boolean
   onToggle: () => void
 }
 
-function InvitationPoster({ isOpen, onToggle }: InvitationSceneProps) {
-  const poster = useRef<Group>(null)
-  const halo = useRef<Group>(null)
-  const orb = useRef<Mesh>(null)
+const topFlapShape = new Shape()
+topFlapShape.moveTo(-2.58, 0)
+topFlapShape.lineTo(2.58, 0)
+topFlapShape.lineTo(0, -1.7)
+topFlapShape.lineTo(-2.58, 0)
 
-  useFrame((state, delta) => {
-    const ease = Math.min(1, delta * 3.5)
+const lowerFoldShape = new Shape()
+lowerFoldShape.moveTo(-2.58, -1.68)
+lowerFoldShape.lineTo(2.58, -1.68)
+lowerFoldShape.lineTo(0, 0.02)
+lowerFoldShape.lineTo(-2.58, -1.68)
 
-    if (poster.current) {
-      const tilt = isOpen ? -0.28 : -0.06 + Math.sin(state.clock.elapsedTime * 0.42) * 0.035
-      poster.current.rotation.y += (tilt - poster.current.rotation.y) * ease
-      poster.current.rotation.z += ((isOpen ? 0.045 : -0.025) - poster.current.rotation.z) * ease
-      poster.current.position.y += ((isOpen ? 0.28 : 0) - poster.current.position.y) * ease
-      poster.current.scale.x += ((isOpen ? 1.06 : 1) - poster.current.scale.x) * ease
-      poster.current.scale.y += ((isOpen ? 1.06 : 1) - poster.current.scale.y) * ease
+function Envelope({ isOpen, onToggle }: InvitationSceneProps) {
+  const flap = useRef<Group>(null)
+  const card = useRef<Group>(null)
+  const cardShadow = useRef<Group>(null)
+
+  useFrame((_, delta) => {
+    const ease = Math.min(1, delta * 4.5)
+    const cardY = isOpen ? 2.05 : 0.12
+    const cardZ = isOpen ? 0.62 : 0.02
+
+    if (flap.current) flap.current.rotation.x += ((isOpen ? -2.36 : 0) - flap.current.rotation.x) * ease
+    if (card.current) {
+      card.current.position.y += (cardY - card.current.position.y) * ease
+      card.current.position.z += (cardZ - card.current.position.z) * ease
+      card.current.rotation.x += ((isOpen ? -0.08 : 0) - card.current.rotation.x) * ease
     }
-
-    if (halo.current) {
-      halo.current.rotation.z += delta * 0.08
-      halo.current.scale.x += ((isOpen ? 1.16 : 1) - halo.current.scale.x) * ease
-      halo.current.scale.y += ((isOpen ? 1.16 : 1) - halo.current.scale.y) * ease
-    }
-
-    if (orb.current) orb.current.position.y = -1.92 + Math.sin(state.clock.elapsedTime * 0.8) * 0.07
+    if (cardShadow.current) cardShadow.current.position.y += (cardY - cardShadow.current.position.y) * ease
   })
 
   return (
-    <Float floatIntensity={0.8} rotationIntensity={0.25} speed={1.05}>
-      <group ref={poster} onClick={onToggle} rotation={[-0.1, -0.06, -0.025]}>
-        <group ref={halo} position={[0, 0, -0.12]}>
-          <mesh rotation={[0, 0, 0.35]}>
-            <torusGeometry args={[2.65, 0.022, 12, 64]} />
-            <meshStandardMaterial color="#c98568" metalness={0.74} roughness={0.28} />
-          </mesh>
-          <mesh rotation={[0, 0, -0.76]}>
-            <torusGeometry args={[2.08, 0.012, 12, 64]} />
-            <meshStandardMaterial color="#d8b99b" metalness={0.58} roughness={0.32} />
-          </mesh>
-        </group>
-        <RoundedBox args={[3.48, 4.92, 0.18]} radius={0.08} smoothness={4} position={[0.16, -0.12, -0.12]}>
-          <meshPhysicalMaterial color="#bb765b" clearcoat={0.7} clearcoatRoughness={0.22} roughness={0.55} />
+    <group onClick={onToggle} rotation={[-0.12, 0, 0]}>
+      <group ref={cardShadow} position={[0.12, 0.12, -0.02]}>
+        <RoundedBox args={[4.08, 5.16, 0.07]} radius={0.035} smoothness={4}>
+          <meshStandardMaterial color="#c4a989" transparent opacity={0.24} />
         </RoundedBox>
-        <RoundedBox args={[3.48, 4.92, 0.18]} radius={0.08} smoothness={4} position={[-0.13, 0.12, -0.04]}>
-          <meshPhysicalMaterial color="#d8b99b" clearcoat={0.55} clearcoatRoughness={0.3} roughness={0.64} />
+      </group>
+      <group ref={card} position={[0, 0.12, 0.02]}>
+        <RoundedBox args={[4.08, 5.16, 0.08]} radius={0.035} smoothness={4}>
+          <meshPhysicalMaterial color="#fffdf9" clearcoat={0.38} clearcoatRoughness={0.4} roughness={0.87} />
         </RoundedBox>
-        <RoundedBox args={[3.48, 4.92, 0.18]} radius={0.08} smoothness={4} position={[0, 0, 0.08]}>
-          <meshPhysicalMaterial color="#fffaf2" clearcoat={0.82} clearcoatRoughness={0.18} roughness={0.77} />
-        </RoundedBox>
-        <Text anchorX="center" color="#b9775b" fontSize={0.12} letterSpacing={0.2} position={[0, 1.87, 0.19]}>SAVE THE DATE</Text>
-        <Text anchorX="center" color="#3b2d26" fontSize={0.45} letterSpacing={-0.05} position={[0, 0.93, 0.19]}>NGỌC AN</Text>
-        <Text anchorX="center" color="#b9775b" fontSize={0.3} position={[0, 0.38, 0.19]}>&</Text>
-        <Text anchorX="center" color="#3b2d26" fontSize={0.45} letterSpacing={-0.05} position={[0, -0.13, 0.19]}>MINH KHANG</Text>
-        <mesh position={[0, -0.79, 0.2]}>
-          <boxGeometry args={[1.62, 0.018, 0.024]} />
-          <meshStandardMaterial color="#b9775b" metalness={0.25} roughness={0.52} />
+        <mesh position={[0, 1.96, 0.06]}>
+          <boxGeometry args={[2.68, 0.018, 0.016]} />
+          <meshStandardMaterial color="#b9775b" />
         </mesh>
-        <Text anchorX="center" color="#3b2d26" fontSize={0.12} letterSpacing={0.11} position={[0, -1.14, 0.19]}>24 · 10 · 2026</Text>
-        <Text anchorX="center" color="#3b2d26" fontSize={0.1} letterSpacing={0.08} position={[0, -1.43, 0.19]}>18:00 · SÀI GÒN</Text>
-        <mesh ref={orb} position={[0, -1.92, 0.21]}>
-          <sphereGeometry args={[0.18, 32, 32]} />
-          <meshPhysicalMaterial color="#b9775b" metalness={0.25} roughness={0.25} clearcoat={1} />
+        <Text anchorX="center" color="#9f624a" fontSize={0.12} letterSpacing={0.17} position={[0, 1.55, 0.07]}>TRÂN TRỌNG KÍNH MỜI</Text>
+        <Text anchorX="center" color="#3b2d26" fontSize={0.46} letterSpacing={-0.05} position={[0, 0.8, 0.07]}>NGỌC AN</Text>
+        <Text anchorX="center" color="#b9775b" fontSize={0.28} position={[0, 0.28, 0.07]}>&</Text>
+        <Text anchorX="center" color="#3b2d26" fontSize={0.46} letterSpacing={-0.05} position={[0, -0.2, 0.07]}>MINH KHANG</Text>
+        <Text anchorX="center" color="#3b2d26" fontSize={0.12} letterSpacing={0.08} position={[0, -1.05, 0.07]}>24 · 10 · 2026</Text>
+        <Text anchorX="center" color="#9f624a" fontSize={0.1} letterSpacing={0.08} position={[0, -1.38, 0.07]}>18:00 · SÀI GÒN</Text>
+        <mesh position={[0, -1.83, 0.07]}>
+          <boxGeometry args={[1.72, 0.014, 0.012]} />
+          <meshStandardMaterial color="#dcc4a9" />
         </mesh>
       </group>
-    </Float>
+
+      <RoundedBox args={[5.24, 3.46, 0.16]} radius={0.055} smoothness={4} position={[0, 0, -0.12]}>
+        <meshPhysicalMaterial color="#e6d5bf" clearcoat={0.25} clearcoatRoughness={0.54} roughness={0.82} />
+      </RoundedBox>
+      <mesh position={[0, 0, 0.05]}>
+        <shapeGeometry args={[lowerFoldShape]} />
+        <meshStandardMaterial color="#dfc9ad" roughness={0.9} />
+      </mesh>
+      <group ref={flap} position={[0, 1.69, 0.08]}>
+        <mesh>
+          <shapeGeometry args={[topFlapShape]} />
+          <meshStandardMaterial color="#eadbc9" roughness={0.87} side={2} />
+        </mesh>
+      </group>
+      <mesh position={[0, -0.1, 0.18]}>
+        <sphereGeometry args={[0.21, 32, 32]} />
+        <meshPhysicalMaterial color="#b9775b" clearcoat={0.72} clearcoatRoughness={0.2} roughness={0.42} />
+      </mesh>
+    </group>
   )
 }
 
 export default function InvitationScene({ isOpen, onToggle }: InvitationSceneProps) {
   return (
-    <Canvas camera={{ fov: 30, position: [0, 0.15, 8.5] }} dpr={[1, 1.8]} gl={{ antialias: true, alpha: true }}>
-      <ambientLight intensity={1.95} />
-      <directionalLight color="#ffe9d4" intensity={3} position={[4, 5, 5]} />
-      <pointLight color="#b9775b" intensity={8} position={[-3, -2, 3]} />
-      <InvitationPoster isOpen={isOpen} onToggle={onToggle} />
-      <OrbitControls autoRotate autoRotateSpeed={0.28} enablePan={false} enableZoom={false} maxPolarAngle={Math.PI / 1.82} minPolarAngle={Math.PI / 3.15} rotateSpeed={0.42} />
+    <Canvas camera={{ fov: 29, position: [0, 0.45, 9.4] }} dpr={[1, 1.8]} gl={{ antialias: true, alpha: true }}>
+      <ambientLight intensity={2.25} />
+      <directionalLight color="#fff1df" intensity={3.2} position={[4, 5, 5]} />
+      <pointLight color="#c98b6d" intensity={5.5} position={[-3, -2, 3]} />
+      <Envelope isOpen={isOpen} onToggle={onToggle} />
     </Canvas>
   )
 }
