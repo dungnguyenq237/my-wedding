@@ -21,14 +21,13 @@ export function RSVP() {
       {response === 'attending' && (
         <div className="rsvp__outcome rsvp__outcome--yes" role="status">
           <Heart fill="currentColor" size={26} />
-          <p>We're hoping to see you there.</p>
+          <p>Chúng mình rất mong sẽ được gặp bạn ở đó.</p>
         </div>
       )}
       {response === 'unableToAttend' && (
         <div className="rsvp__outcome rsvp__outcome--no" role="status">
           <div className="qr-placeholder" aria-label="QR mừng cưới sẽ được cập nhật"><QrCode size={54} /></div>
-          <p>Sending us some nice words if you cannot be there.</p>
-          <small>QR mừng cưới sẽ được cập nhật</small>
+          <p>Hãy gửi cho chúng tớ những lời chúc tốt đẹp nếu bạn không thể có mặt.</p>
         </div>
       )}
     </section>
