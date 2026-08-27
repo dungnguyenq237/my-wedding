@@ -1,4 +1,4 @@
-import { Check, Heart, QrCode, X } from 'lucide-react'
+import { Check, Heart, X } from 'lucide-react'
 import { useState } from 'react'
 
 type RSVPResponse = 'idle' | 'attending' | 'unableToAttend'
@@ -26,7 +26,7 @@ export function RSVP() {
       )}
       {response === 'unableToAttend' && (
         <div className="rsvp__outcome rsvp__outcome--no" role="status">
-          <div className="qr-placeholder" aria-label="QR mừng cưới sẽ được cập nhật"><QrCode size={54} /></div>
+          <img className="rsvp__qr" src={`${import.meta.env.BASE_URL}wedding-qr.png`} alt="QR mừng cưới Techcombank" />
           <p>Hãy gửi cho chúng tớ những lời chúc tốt đẹp nếu bạn không thể có mặt.</p>
         </div>
       )}
