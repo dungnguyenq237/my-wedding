@@ -92,7 +92,7 @@ export const wedding: WeddingContent = {
     },
     {
       id: 'thanh-hon',
-      label: 'Lễ Thành Hôn',
+      label: 'Lễ Tân Hôn',
       title: 'Nhà trai',
       dateLabel: 'Thứ Bảy, 24.10.2026',
       time: '11:00',
@@ -113,7 +113,7 @@ export const wedding: WeddingContent = {
   ],
   invitation: {
     greeting: 'Trân trọng kính mời',
-    title: 'Lễ Thành Hôn',
+    title: 'Lễ Tân Hôn',
     parents: {
       bride: { father: 'Ông Lương Mai Châu', mother: 'Bà Nguyễn Thị Châu' },
       groom: { father: 'Ông Nguyễn Tấn Tài', mother: 'Bà Cao Thị Hương' },
