@@ -308,7 +308,7 @@ export default function App() {
         <AlbumGallery images={wedding.gallery} />
       </section>
 
-      <RSVP />
+      <RSVP audience={audience} />
 
       <footer className="cinematic-footer">
         <span>❁ · {wedding.couple.initials} · ❁</span>

@@ -2,8 +2,13 @@ import { Check, Heart, X } from 'lucide-react'
 import { useState } from 'react'
 
 type RSVPResponse = 'idle' | 'attending' | 'unableToAttend'
+type WeddingAudience = 'bride' | 'groom'
 
-export function RSVP() {
+interface RSVPProps {
+  audience: WeddingAudience
+}
+
+export function RSVP({ audience }: RSVPProps) {
   const [response, setResponse] = useState<RSVPResponse>('idle')
 
   return (
@@ -26,7 +31,11 @@ export function RSVP() {
       )}
       {response === 'unableToAttend' && (
         <div className="rsvp__outcome rsvp__outcome--no" role="status">
-          <img className="rsvp__qr" src="/my-wedding/wedding-qr.png" alt="QR mừng cưới Techcombank" />
+          <img
+            className="rsvp__qr"
+            src={audience === 'bride' ? '/my-wedding/wedding-qr-bride.svg' : '/my-wedding/wedding-qr.png'}
+            alt={audience === 'bride' ? 'QR mừng cưới TPBank' : 'QR mừng cưới Techcombank'}
+          />
           <p>Hãy gửi cho chúng tớ những lời chúc tốt đẹp nếu bạn không thể có mặt.</p>
         </div>
       )}
