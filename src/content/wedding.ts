@@ -39,10 +39,16 @@ export interface InvitationContent {
   request: string
 }
 
+export type WeddingAudience = 'bride' | 'groom'
+
+export interface HeroSchedule {
+  dateLabel: string
+  targetIso: string
+}
+
 export interface WeddingContent {
   couple: { bride: string; groom: string; initials: string }
-  dateLabel: string
-  countdownTarget: string
+  heroSchedule: Record<WeddingAudience, HeroSchedule>
   heroImage: GalleryImage
   story: StoryBeat[]
   gallery: GalleryImage[]
@@ -65,8 +71,16 @@ export const wedding: WeddingContent = {
     groom: 'Quốc Dũng',
     initials: 'D + T',
   },
-  dateLabel: 'Thứ Bảy, 24.10.2026',
-  countdownTarget: '2026-10-24T18:00:00+07:00',
+  heroSchedule: {
+    bride: {
+      dateLabel: 'Thứ Bảy · 10 tháng 10, 2026',
+      targetIso: '2026-10-10T15:00:00+07:00',
+    },
+    groom: {
+      dateLabel: 'Thứ Bảy · 24 tháng 10, 2026',
+      targetIso: '2026-10-24T18:00:00+07:00',
+    },
+  },
   heroImage: {
     src: mockImages.hero,
     alt: 'Cặp đôi đứng bên nhau trong ánh nắng chiều',

@@ -17,6 +17,11 @@ const navigation = [
 export default function App() {
   const root = useRef<HTMLElement>(null);
   const [isReady, setIsReady] = useState(false);
+  const audience =
+    new URLSearchParams(window.location.search).get("user") === "bride"
+      ? "bride"
+      : "groom";
+  const heroSchedule = wedding.heroSchedule[audience];
 
   useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -168,11 +173,11 @@ export default function App() {
           <span className="hero__family-line">
             Cùng sự chúc phúc của hai bên gia đình
           </span>
-          <time dateTime="2026-10-24T18:00:00+07:00">
-            Thứ Bảy · 24 tháng 10, 2026
+          <time dateTime={heroSchedule.targetIso}>
+            {heroSchedule.dateLabel}
           </time>
           <div className="hero__countdown">
-            <Countdown targetIso={wedding.countdownTarget} />
+            <Countdown targetIso={heroSchedule.targetIso} />
           </div>
         </article>
       </section>
