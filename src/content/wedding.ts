@@ -1,14 +1,19 @@
-export type WeddingEventType = 'vu-quy' | 'thanh-hon' | 'tiec-cuoi'
+export type WeddingEventType = 'nha-gai' | 'nha-trai'
 
-export interface WeddingEvent {
-  id: WeddingEventType
-  label: string
+export interface WeddingCeremony {
+  id: string
   title: string
   dateLabel: string
   time: string
   venue: string
   address: string
   mapUrl: string
+}
+
+export interface WeddingEvent {
+  id: WeddingEventType
+  title: string
+  ceremonies: WeddingCeremony[]
 }
 
 export interface GalleryImage {
@@ -81,34 +86,52 @@ export const wedding: WeddingContent = {
   ],
   events: [
     {
-      id: 'vu-quy',
-      label: 'Lễ Vu Quy',
-      title: 'Nhà gái',
-      dateLabel: 'Thứ Bảy, 10.10.2026',
-      time: '15:00',
-      venue: 'Thánh đường Nhà thờ giáo xứ Tân Lập',
-      address: ' 460 Đường số 24, P. Bình Trưng, TP. Hồ Chí Minh',
-      mapUrl: 'https://maps.app.goo.gl/6TsqAe5QexX3Wxzi6',
+      id: 'nha-gai',
+      title: 'Nhà Gái',
+      ceremonies: [
+        {
+          id: 'thanh-le-hon-phoi',
+          title: 'Thánh Lễ Hôn Phối',
+          dateLabel: 'Thứ Bảy, 10.10.2026',
+          time: '15:00',
+          venue: 'Thánh đường Nhà thờ giáo xứ Tân Lập',
+          address: '460 Đường số 24, P. Bình Trưng, TP. Hồ Chí Minh',
+          mapUrl: 'https://maps.app.goo.gl/6TsqAe5QexX3Wxzi6',
+        },
+        {
+          id: 'tiec-vu-quy',
+          title: 'Tiệc Vu Quy',
+          dateLabel: 'Thứ Bảy, 10.10.2026',
+          time: '18:00',
+          venue: 'Khuôn viên Nhà thờ giáo xứ Tân Lập',
+          address: '460 Đường số 24, P. Bình Trưng, TP. Hồ Chí Minh',
+          mapUrl: 'https://maps.app.goo.gl/6TsqAe5QexX3Wxzi6',
+        },
+      ],
     },
     {
-      id: 'thanh-hon',
-      label: 'Lễ Tân Hôn',
-      title: 'Nhà trai',
-      dateLabel: 'Thứ Bảy, 24.10.2026',
-      time: '11:00',
-      venue: 'Tư gia nhà trai',
-      address: '82A Đường số 11, P. Tam Bình, TP. Hồ Chí Minh',
-      mapUrl: 'https://maps.app.goo.gl/STM7tRoJx2hW76Ft9',
-    },
-    {
-      id: 'tiec-cuoi',
-      label: 'Tiệc Cưới',
-      title: 'Cùng chung vui',
-      dateLabel: 'Thứ Bảy, 24.10.2026',
-      time: '18:00',
-      venue: 'Aqua Jardin',
-      address: '307 Nơ Trang Long, P. Bình Lợi Trung, TP. Hồ Chí Minh',
-      mapUrl: 'https://maps.app.goo.gl/yc9G4n5VFkheuaDg9',
+      id: 'nha-trai',
+      title: 'Nhà Trai',
+      ceremonies: [
+        {
+          id: 'le-gia-tien',
+          title: 'Lễ Gia Tiên',
+          dateLabel: 'Thứ Bảy, 24.10.2026',
+          time: '11:00',
+          venue: 'Tư gia nhà trai',
+          address: '82A Đường số 11, P. Tam Bình, TP. Hồ Chí Minh',
+          mapUrl: 'https://maps.app.goo.gl/STM7tRoJx2hW76Ft9',
+        },
+        {
+          id: 'tiec-tan-hon',
+          title: 'Tiệc Tân Hôn',
+          dateLabel: 'Thứ Bảy, 24.10.2026',
+          time: '18:00',
+          venue: 'Trung tâm hội nghị tiệc cưới Aqua Jardin',
+          address: '307 Nơ Trang Long, P. Bình Lợi Trung, TP. Hồ Chí Minh',
+          mapUrl: 'https://maps.app.goo.gl/yc9G4n5VFkheuaDg9',
+        },
+      ],
     },
   ],
   invitation: {

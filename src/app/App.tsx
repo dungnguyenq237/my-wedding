@@ -1,4 +1,4 @@
-import { CalendarDays, MapPin, Navigation } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 import gsap from "gsap";
 import { useLayoutEffect, useRef, useState } from "react";
 import { wedding } from "../content/wedding";
@@ -11,14 +11,12 @@ const navigation = [
   ["Chuyện mình", "#cau-chuyen"],
   ["Ngày cưới", "#su-kien"],
   ["Gia đình", "#gia-dinh"],
-  ["Địa điểm", "#dia-diem"],
   ["RSVP", "#rsvp"],
 ] as const;
 
 export default function App() {
   const root = useRef<HTMLElement>(null);
   const [isReady, setIsReady] = useState(false);
-  const reception = wedding.events.find((event) => event.id === "tiec-cuoi")!;
 
   useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
@@ -86,7 +84,7 @@ export default function App() {
       );
       const content = Array.from(
         section.querySelectorAll<HTMLElement>(
-          ".story-reference__intro, .story-reference__beats > article, .families__grid > *, .timeline-card, .album, .venue > p:not(.ornate-label), .venue > a, .rsvp__choices",
+          ".story-reference__intro, .story-reference__beats > article, .families__grid > *, .timeline-card, .album, .rsvp__choices",
         ),
       );
 
@@ -112,7 +110,7 @@ export default function App() {
       timelines.forEach((timeline) => timeline.kill());
       gsap.set(Array.from(timelines.keys()).flatMap((section) => [
         ...section.querySelectorAll<HTMLElement>(":scope > .ornate-label, :scope > h2, :scope > .eyebrow"),
-        ...section.querySelectorAll<HTMLElement>(".story-reference__intro, .story-reference__beats > article, .families__grid > *, .timeline-card, .album, .venue > p:not(.ornate-label), .venue > a, .rsvp__choices"),
+        ...section.querySelectorAll<HTMLElement>(".story-reference__intro, .story-reference__beats > article, .families__grid > *, .timeline-card, .album, .rsvp__choices"),
       ]), { clearProps: "all" });
     };
   }, []);
@@ -255,33 +253,45 @@ export default function App() {
         <div className="celebration__timeline">
           {wedding.events.map((event, index) => (
             <article className="timeline-card" key={event.id}>
-              <span className="timeline-card__number">0{index + 1}</span>
-              <div>
-                <p>{event.label}</p>
+              <header className="timeline-card__heading">
+                <span className="timeline-card__number">0{index + 1}</span>
                 <h3>{event.title}</h3>
+              </header>
+
+              <div className="timeline-card__events">
+                {event.ceremonies.map((ceremony) => (
+                  <div className="timeline-card__event" key={ceremony.id}>
+                    <h4>{ceremony.title}</h4>
+                    <dl>
+                      <div>
+                        <dt>
+                          <CalendarDays size={15} /> Thời gian
+                        </dt>
+                        <dd>
+                          {ceremony.dateLabel} · {ceremony.time}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>
+                          <MapPin size={15} /> Địa điểm
+                        </dt>
+                        <dd>
+                          {ceremony.venue}
+                          <br />
+                          <a
+                            href={ceremony.mapUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            aria-label={`Mở bản đồ: ${ceremony.address}`}
+                          >
+                            {ceremony.address}
+                          </a>
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
               </div>
-              <dl>
-                <div>
-                  <dt>
-                    <CalendarDays size={15} /> Thời gian
-                  </dt>
-                  <dd>
-                    {event.dateLabel} · {event.time}
-                  </dd>
-                </div>
-                <div>
-                  <dt>
-                    <MapPin size={15} /> Địa điểm
-                  </dt>
-                  <dd>
-                    {event.venue}
-                    <br />
-                    <a href={event.mapUrl} target="_blank" rel="noreferrer" aria-label={`Mở bản đồ: ${event.address}`}>
-                      {event.address}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
             </article>
           ))}
         </div>
@@ -293,29 +303,11 @@ export default function App() {
         <AlbumGallery images={wedding.gallery} />
       </section>
 
-      <section
-        className="venue section"
-        id="dia-diem"
-        aria-labelledby="venue-title"
-      >
-        <p className="ornate-label">˚ địa điểm ˚</p>
-        <h2 id="venue-title">Hẹn gặp bạn ở đây nhé</h2>
-        <p>
-          {reception.venue}
-          <br />
-          {reception.address}
-        </p>
-        <a href={reception.mapUrl} target="_blank" rel="noreferrer">
-          <Navigation size={17} /> Mở Google Maps
-        </a>
-      </section>
-
       <RSVP />
 
       <footer className="cinematic-footer">
         <span>❁ · {wedding.couple.initials} · ❁</span>
-        <p>{wedding.dateLabel}</p>
-        <small>Thiệp cưới được gửi với thật nhiều yêu thương</small>
+        <p>Thiệp cưới được gửi với thật nhiều yêu thương</p>
       </footer>
     </main>
   );

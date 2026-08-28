@@ -356,26 +356,46 @@ a:focus-visible {
 .timeline-card {
   border: 1px solid rgb(255 255 255 / 20%);
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
   padding: 1.25rem;
+}
+.timeline-card__heading {
+  align-items: end;
+  border-bottom: 1px solid rgb(255 255 255 / 16%);
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: auto 1fr;
+  padding-bottom: 1rem;
 }
 .timeline-card__number {
   color: #e3b496;
-}
-.timeline-card p {
-  color: #e3b496;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  margin: 0;
-  text-transform: uppercase;
 }
 .timeline-card h3 {
   font-family: Lora, serif;
   font-size: 1.5rem;
   font-weight: 500;
   letter-spacing: -0.05em;
-  margin: 0.45rem 0 0;
+  margin: 0;
+}
+.timeline-card__events {
+  display: grid;
+  gap: 1.15rem;
+}
+.timeline-card__event {
+  display: grid;
+  gap: 0.85rem;
+}
+.timeline-card__event + .timeline-card__event {
+  border-top: 1px solid rgb(255 255 255 / 16%);
+  padding-top: 1.15rem;
+}
+.timeline-card__event h4 {
+  color: #e3b496;
+  font-family: Lora, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0;
 }
 .timeline-card dl {
   display: grid;
@@ -680,27 +700,8 @@ a:focus-visible {
   position: absolute;
 }
 
-.venue {
-  background: #ead8bd;
-}
-.venue > p:not(.ornate-label) {
-  font-family: Lora, serif;
-  font-size: 1.15rem;
-  line-height: 1.7;
-  margin: 1.5rem auto;
-  max-width: 35rem;
-}
-.venue a {
-  align-items: center;
-  border: 1px solid var(--ink);
-  display: inline-flex;
-  font-size: 0.76rem;
-  gap: 0.5rem;
-  padding: 0.8rem 1rem;
-  text-decoration: none;
-}
 .rsvp {
-  background: var(--white);
+  background: #ead8bd;
   padding: 5rem 1.25rem;
   text-align: center;
 }
@@ -747,7 +748,7 @@ a:focus-visible {
   padding: 1.5rem;
 }
 .rsvp__outcome--yes {
-  background: #ead8bd;
+  background: var(--white);
   color: var(--clay);
   display: flex;
   align-items: center;
@@ -783,14 +784,10 @@ a:focus-visible {
   font-size: 1.15rem;
 }
 .cinematic-footer p {
-  font-size: 0.7rem;
-  letter-spacing: 0.09em;
-  margin: 1rem 0 0.35rem;
-  text-transform: uppercase;
-}
-.cinematic-footer small {
   color: rgb(255 255 255 / 60%);
   font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  margin: 1rem 0 0;
 }
 
 #rsvp-title {
@@ -823,13 +820,20 @@ a:focus-visible {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
   }
+  .celebration__timeline {
+    gap: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .timeline-card {
-    align-items: start;
-    grid-template-columns: 0.25fr 0.7fr 1.4fr;
-    padding: 1.5rem;
+    grid-template-rows: auto 1fr;
+    min-width: 0;
+    padding: 1.6rem;
+  }
+  .timeline-card__events {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
   }
   .timeline-card dl {
-    grid-template-columns: 1fr 1.35fr;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
   }
   .families__grid {
     gap: 1.5rem;
