@@ -33,7 +33,7 @@ export function RSVP({ audience }: RSVPProps) {
         <div className="rsvp__outcome rsvp__outcome--no" role="status">
           <img
             className="rsvp__qr"
-            src={audience === 'bride' ? '/my-wedding/wedding-qr-bride.svg' : '/my-wedding/wedding-qr.png'}
+            src={audience === 'bride' ? '/my-wedding/bride-qr.jpg' : '/my-wedding/wedding-qr.png'}
             alt={audience === 'bride' ? 'QR mừng cưới TPBank' : 'QR mừng cưới Techcombank'}
           />
           <p>Hãy gửi cho chúng tớ những lời chúc tốt đẹp nếu bạn không thể có mặt.</p>
