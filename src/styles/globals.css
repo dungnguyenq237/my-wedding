@@ -947,7 +947,3 @@ a:focus-visible {
   }
 }
 
-/* Temporary: preserve poster geometry while inspecting mobile photo framing. */
-.hero__poster {
-  visibility: hidden;
-}
