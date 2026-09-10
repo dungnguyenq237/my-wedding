@@ -144,7 +144,7 @@ a:focus-visible {
 .hero__photo {
   filter: sepia(0.22) saturate(0.68) contrast(0.86);
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   opacity: 0.48;
   width: 100%;
@@ -795,6 +795,42 @@ a:focus-visible {
   white-space: nowrap;
 }
 
+@media (max-width: 767px) {
+  .hero__mosaic {
+    /* Wider tiles avoid the severe crop of the desktop's narrow columns. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      "first second"
+      "flowers flowers"
+      "fourth fifth";
+  }
+  .hero__photo {
+    min-width: 0;
+    min-height: 0;
+  }
+  .hero__photo--1 {
+    grid-area: first;
+    object-position: 50% 55%;
+  }
+  .hero__photo--2 {
+    grid-area: second;
+    object-position: 60% 45%;
+  }
+  .hero__photo--3 {
+    grid-area: flowers;
+    object-position: 50% 55%;
+  }
+  .hero__photo--4 {
+    grid-area: fourth;
+    object-position: 50% 60%;
+  }
+  .hero__photo--5 {
+    grid-area: fifth;
+    object-position: 50% 40%;
+  }
+}
+
 @media (min-width: 768px) {
   .site-nav {
     padding: 0.85rem 4vw;
@@ -813,9 +849,6 @@ a:focus-visible {
   }
   .hero__poster {
     padding: 3.1rem 2rem 1.6rem;
-  }
-  .hero__photo {
-    object-fit: cover;
   }
   .section {
     padding: 7.5rem max(8vw, 2rem);
