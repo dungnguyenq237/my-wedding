@@ -144,7 +144,8 @@ a:focus-visible {
 .hero__photo {
   filter: sepia(0.22) saturate(0.68) contrast(0.86);
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   opacity: 0.48;
   width: 100%;
 }
@@ -812,6 +813,9 @@ a:focus-visible {
   }
   .hero__poster {
     padding: 3.1rem 2rem 1.6rem;
+  }
+  .hero__photo {
+    object-fit: cover;
   }
   .section {
     padding: 7.5rem max(8vw, 2rem);
