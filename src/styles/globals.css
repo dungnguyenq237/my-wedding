@@ -141,11 +141,20 @@ a:focus-visible {
   inset: 4.8rem 1rem 1rem;
   position: absolute;
 }
+.hero__frame {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  object-position: center;
+}
 .hero__photo {
+  position: absolute;
+  inset: 0;
   filter: sepia(0.22) saturate(0.68) contrast(0.86);
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: inherit;
   opacity: 0.48;
   width: 100%;
 }
