@@ -24,6 +24,38 @@ export default function App() {
   const heroSchedule = wedding.heroSchedule[audience];
 
   useLayoutEffect(() => {
+    if (!new URLSearchParams(window.location.search).has("debugHero")) return;
+    const mosaic = root.current?.querySelector<HTMLElement>(".hero__mosaic");
+    if (!mosaic) return;
+    const report = () => {
+      console.log("[hero layout]", {
+        viewport: [window.innerWidth, window.innerHeight],
+        visualViewport: [window.visualViewport?.width, window.visualViewport?.height],
+        rows: getComputedStyle(mosaic).gridTemplateRows,
+      });
+      console.table(Array.from(mosaic.querySelectorAll<HTMLElement>(".hero__frame")).map((frame) => {
+        const image = frame.querySelector("img");
+        return {
+          frame: frame.className,
+          frameWidth: frame.clientWidth,
+          frameHeight: frame.clientHeight,
+          imageWidth: image?.clientWidth,
+          imageHeight: image?.clientHeight,
+          naturalWidth: image?.naturalWidth,
+          naturalHeight: image?.naturalHeight,
+        };
+      }));
+    };
+    const observer = new ResizeObserver(report);
+    observer.observe(mosaic);
+    mosaic.addEventListener("load", report, true);
+    return () => {
+      observer.disconnect();
+      mosaic.removeEventListener("load", report, true);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
     window.history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
   }, []);
@@ -156,12 +188,12 @@ export default function App() {
             wedding.heroImages[2],
             wedding.heroImages[3],
           ].map((image, index) => (
-            <img
-              className={`hero__photo hero__photo--${index + 1}`}
+            <div
+              className={`hero__frame hero__photo--${index + 1}`}
               key={image.src}
-              src={image.src}
-              alt=""
-            />
+            >
+              <img className="hero__photo" src={image.src} alt="" />
+            </div>
           ))}
         </div>
         <article className="hero__poster">
