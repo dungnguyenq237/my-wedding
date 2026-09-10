@@ -937,3 +937,8 @@ a:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Temporary: preserve poster geometry while inspecting mobile photo framing. */
+.hero__poster {
+  visibility: hidden;
+}
