@@ -150,11 +150,11 @@ export default function App() {
         <div className="hero__ornament" aria-hidden="true" />
         <div className="hero__mosaic" aria-hidden="true">
           {[
-            wedding.gallery[0],
-            wedding.gallery[1],
+            wedding.heroImages[0],
+            wedding.heroImages[1],
             wedding.heroImage,
-            wedding.gallery[2],
-            wedding.gallery[3],
+            wedding.heroImages[2],
+            wedding.heroImages[3],
           ].map((image, index) => (
             <img
               className={`hero__photo hero__photo--${index + 1}`}

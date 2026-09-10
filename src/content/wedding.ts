@@ -50,6 +50,7 @@ export interface WeddingContent {
   couple: { bride: string; groom: string; initials: string }
   heroSchedule: Record<WeddingAudience, HeroSchedule>
   heroImage: GalleryImage
+  heroImages: GalleryImage[]
   story: StoryBeat[]
   gallery: GalleryImage[]
   events: WeddingEvent[]
@@ -57,12 +58,16 @@ export interface WeddingContent {
   qrImage: string | null
 }
 
-const mockImages = {
-  hero: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1600&q=88',
-  walk: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=88',
-  flowers: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=88',
-  laughter: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=88',
-  table: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=88',
+const weddingImages = {
+  hero: new URL('../styles/images/hoa.jpg', import.meta.url).href,
+  one: new URL('../styles/images/1.jpg', import.meta.url).href,
+  two: new URL('../styles/images/2.jpg', import.meta.url).href,
+  three: new URL('../styles/images/3.jpg', import.meta.url).href,
+  four: new URL('../styles/images/4.jpg', import.meta.url).href,
+  five: new URL('../styles/images/5.jpg', import.meta.url).href,
+  six: new URL('../styles/images/6.jpg', import.meta.url).href,
+  seven: new URL('../styles/images/7.jpg', import.meta.url).href,
+  eight: new URL('../styles/images/8.jpg', import.meta.url).href,
 } as const
 
 export const wedding: WeddingContent = {
@@ -82,21 +87,27 @@ export const wedding: WeddingContent = {
     },
   },
   heroImage: {
-    src: mockImages.hero,
+    src: weddingImages.hero,
     alt: 'Cặp đôi đứng bên nhau trong ánh nắng chiều',
     caption: 'save the date',
     position: 'center',
   },
+  heroImages: [
+    { src: weddingImages.two, alt: 'Cặp đôi đúng bên nhau trong ánh nắng chiều', caption: 'save the date', position: 'center' },
+    { src: weddingImages.one, alt: 'Cặp đôi đúng bên nhau trong ánh nắng chiều', caption: 'save the date', position: 'center' },
+    { src: weddingImages.seven, alt: 'Cặp đôi đúng bên nhau trong ánh nắng chiều', caption: 'save the date', position: 'center' },
+    { src: weddingImages.eight, alt: 'Cặp đôi đúng bên nhau trong ánh nắng chiều', caption: 'save the date', position: 'center' },
+  ],
   story: [
     { year: '04.2020', title: 'Lần đầu gặp gỡ', body: 'Một buổi chiều tình cờ, một ly cà phê và cuộc trò chuyện kéo dài hơn dự tính.' },
     { year: '07.2023', title: 'Ngày anh cầu hôn em', body: 'Từ những chuyến đi nhỏ đến những buổi tối rất bình yên, tụi mình đã chọn sẽ đồng hành cùng nhau.' },
     { year: '10.2026', title: 'Một lời hẹn trọn đời', body: 'Và giờ đây, tụi mình muốn mời bạn đến chia sẻ khoảnh khắc thật đặc biệt này.' },
   ],
   gallery: [
-    { src: mockImages.walk, alt: 'Cặp đôi nắm tay dạo bước', caption: 'những ngày rất thương', position: 'center' },
-    { src: mockImages.flowers, alt: 'Bó hoa cưới trắng', caption: 'một chút dịu dàng', position: 'center' },
-    { src: mockImages.laughter, alt: 'Cặp đôi cười cạnh nhau', caption: 'và thật nhiều tiếng cười', position: 'center' },
-    { src: mockImages.table, alt: 'Không gian tiệc cưới ấm áp', caption: 'hẹn nhau vào ngày đẹp nhất', position: 'center' },
+    { src: weddingImages.six, alt: 'Khoảnh khắc của cặp đôi', caption: 'những ngày rất thương', position: 'center' },
+    { src: weddingImages.three, alt: 'Khoảnh khắc của cặp đôi', caption: 'một chút dịu dàng', position: 'center' },
+    { src: weddingImages.four, alt: 'Khoảnh khắc của cặp đôi', caption: 'và thật nhiều tiếng cười', position: 'center' },
+    { src: weddingImages.five, alt: 'Khoảnh khắc của cặp đôi', caption: 'hẹn nhau vào ngày đẹp nhất', position: 'center' },
   ],
   events: [
     {
