@@ -1,0 +1,487 @@
+/* Scoped album surface. PageFlip owns only .wedding-album__mount descendants. */
+.wedding-album {
+  --gold: #a7833b;
+  --gold-light: #dec894;
+  --album-ink: #645034;
+  margin: 2rem auto 0;
+  max-width: 62rem;
+  color: var(--album-ink);
+}
+.wedding-album__intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.wedding-album__intro p {
+  font-size: 0.59rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin: 0;
+  color: #947949;
+}
+.wedding-album__intro > span {
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light));
+}
+.wedding-album__intro > span:last-child {
+  transform: rotate(180deg);
+}
+.wedding-album__scene {
+  position: relative;
+  padding: 1.8rem 0 2.2rem;
+  isolation: isolate;
+}
+.wedding-album__halo {
+  position: absolute;
+  inset: -3% -8%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse, #e6d2a656, #eadfc12b 45%, transparent 70%);
+}
+.wedding-album__book {
+  position: relative;
+  max-width: 840px;
+  margin: auto;
+  touch-action: pan-y;
+  user-select: none;
+  outline-offset: 10px;
+  transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  cursor: pointer;
+}
+.wedding-album__book:focus-visible {
+  outline: 2px solid var(--gold);
+}
+.wedding-album__mount {
+  width: 100%;
+  min-height: 320px;
+}
+.is-landscape.is-front .wedding-album__book {
+  transform: translateX(-25%);
+}
+.is-landscape.is-back .wedding-album__book {
+  transform: translateX(25%);
+}
+.wedding-album__mount .stf__parent {
+  margin: auto;
+}
+.wedding-album__mount .stf__wrapper {
+  overflow: visible;
+}
+.wedding-album__loading {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+  font-family: Lora, serif;
+  font-style: italic;
+}
+.wedding-album__hint {
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  color: #857250;
+  margin: 0.1rem 0 1.2rem;
+}
+.wedding-album__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+}
+.wedding-album__controls > div {
+  min-width: 10rem;
+  display: grid;
+  gap: 0.45rem;
+}
+.wedding-album__controls span {
+  font-family: Lora, serif;
+  font-size: 0.92rem;
+}
+.wedding-album__controls small {
+  color: #947e5b;
+  font-size: 0.51rem;
+  letter-spacing: 0.14em;
+}
+.wedding-album__controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #cfbb91;
+  border-radius: 50%;
+  background: #fffcf7;
+  color: #92703a;
+  transition: background 0.2s;
+}
+.wedding-album button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.wedding-album button:not(:disabled):hover {
+  background-color: #f0e4cc;
+}
+.wedding-album__open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+  min-height: 44px;
+  padding: 0.65rem 1.6rem;
+  background: #fbf5e8;
+  border: 1px solid #c9ae77;
+  color: #796035;
+  border-radius: 2px;
+  font-size: 0.73rem;
+}
+.wedding-album__thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.7rem;
+}
+.wedding-album__thumbnails button {
+  width: 64px;
+  padding: 4px;
+  border: 1px solid #dbceb8;
+  background: #fffcf8;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+.wedding-album__thumbnails button[aria-current='true'] {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 3px 0 #d1b67c;
+}
+.wedding-album__thumbnails img {
+  width: 100%;
+  height: 40px;
+  object-fit: cover;
+}
+.wedding-album__thumbnails span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.56rem;
+  color: #947949;
+}
+.wedding-album__description {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.wedding-album__fallback {
+  display: grid;
+  gap: 1rem;
+}
+.wedding-album__fallback figure {
+  margin: 0;
+  padding: 1rem;
+  background: #fffdf9;
+}
+.wedding-album__fallback img {
+  width: 100%;
+  height: auto;
+}
+.book-page {
+  container-type: inline-size;
+  background: #fffdf7;
+  color: var(--album-ink);
+  overflow: hidden;
+  border: 1px solid #dbceb3;
+  box-shadow:
+    1px 2px 0 #e8ddc7,
+    3px 4px 0 #fcf8ee,
+    5px 6px 0 #d8c8a6,
+    0 14px 28px #66502a22;
+}
+.book-page::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #80643b12, transparent 7%, transparent 93%, #80643b0c);
+}
+.book-page--cover {
+  background: radial-gradient(ellipse at 35% 20%, #fffdf6, #f2e8d3 90%);
+  border: 1px solid #cbb785;
+}
+.book-page--cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 2px, #9b7c2d05 2px 3px),
+    repeating-linear-gradient(90deg, transparent 0 2px, #9b7c2d04 2px 3px);
+  pointer-events: none;
+}
+.book-cover__border {
+  position: absolute;
+  inset: 5%;
+  border: 1px solid #bea26a;
+  box-shadow:
+    inset 0 0 0 4px #f8f0df,
+    inset 0 0 0 5px #ccb784;
+}
+.book-cover__border::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px solid #d5c39a;
+}
+.book-corner {
+  position: absolute;
+  width: 25%;
+  height: auto;
+  color: #b59655;
+}
+.book-corner--tl {
+  top: 4%;
+  left: 4%;
+}
+.book-corner--tr {
+  top: 4%;
+  right: 4%;
+  transform: rotate(90deg);
+}
+.book-corner--bl {
+  bottom: 4%;
+  left: 4%;
+  transform: rotate(-90deg);
+}
+.book-corner--br {
+  bottom: 4%;
+  right: 4%;
+  transform: rotate(180deg);
+}
+.book-cover__ribbon {
+  position: absolute;
+  top: 0;
+  right: 13%;
+  width: 6%;
+  height: 19%;
+  background: linear-gradient(90deg, #b89954, #e3cd92 45%, #bca064);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 86%, 0 100%);
+  opacity: 0.8;
+}
+.book-cover__content {
+  position: absolute;
+  inset: 9% 12%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.book-eyebrow {
+  font-size: 2.2cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin: 0 0 3%;
+  color: #957846;
+}
+.book-cover__crest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 22%;
+  aspect-ratio: 0.87;
+  border: 1px solid #cbb078;
+  border-radius: 50%;
+  outline: 1px solid #d9c599;
+  outline-offset: 4px;
+  font-family: Lora, serif;
+  font-size: 7cqw;
+  color: #a5823e;
+  text-shadow: 0 1px #fff;
+  flex-shrink: 0;
+}
+.book-cover__crest i {
+  font-size: 0.65em;
+  font-weight: 400;
+}
+.book-flourish {
+  width: 45%;
+  color: #b2965f;
+  flex-shrink: 0;
+}
+.book-cover__content > .book-flourish {
+  width: 38%;
+  margin: 3% 0 2%;
+}
+.book-cover__content h3 {
+  font-family: Lora, serif;
+  font-size: 7cqw;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.2;
+  margin: 0;
+  color: #846432;
+}
+.book-cover__content h3 i {
+  display: block;
+  font-size: 0.6em;
+  line-height: 1.3;
+  color: #b19359;
+}
+.book-cover__subtitle {
+  font-family: Lora, serif;
+  font-style: italic;
+  font-size: 3cqw;
+  line-height: 1.7;
+  margin: 3% 0 0;
+  color: #a08761;
+}
+.book-flourish--small,
+.book-cover__content > .book-flourish--small {
+  width: 22%;
+}
+.book-cover__date {
+  font-size: 1.9cqw;
+  letter-spacing: 0.25em;
+  margin: 3% 0 0;
+  color: #917749;
+}
+.book-page--photo {
+  padding: 7% 6% 5%;
+}
+.book-photo__top,
+.book-photo__footer {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.48rem;
+  letter-spacing: 0.08em;
+  color: #ae9569;
+}
+.book-photo__top {
+  top: 6%;
+  padding-bottom: 3%;
+  border-bottom: 1px solid #ded0b4;
+}
+.book-photo__top > span:last-child {
+  font-size: 1rem;
+}
+.book-photo__footer {
+  bottom: 5%;
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+}
+.book-photo__footer > span:last-child {
+  font-family: Lora, serif;
+  font-size: 0.8rem;
+}
+.book-photo__body {
+  position: absolute;
+  inset: 14% 7% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4%;
+}
+.book-photo__ornament {
+  width: 30%;
+}
+.book-photo__mount {
+  width: 100%;
+  margin: 0;
+  padding: 7px;
+  background: #fffcf7;
+  border: 1px solid #d3ba82;
+  outline: 1px solid #e5d6b7;
+  outline-offset: 3px;
+  box-shadow: 0 5px 12px #69563614;
+}
+.book-photo__mount img {
+  width: 100%;
+  aspect-ratio: 1.65;
+  object-fit: contain;
+  background: #f4eee3;
+}
+.book-photo__mount figcaption {
+  font-family: Lora, serif;
+  font-size: clamp(0.85rem, 1.6vw, 1.13rem);
+  font-style: italic;
+  line-height: 1.45;
+  padding: 5% 0 3%;
+  text-align: center;
+}
+.book-photo__verse {
+  font-family: Lora, serif;
+  font-size: clamp(0.63rem, 1.1vw, 0.78rem);
+  font-style: italic;
+  color: #9c8868;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 85%;
+  margin: 1% 0;
+}
+.book-page--dedication {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.book-page--dedication p {
+  font-family: Lora, serif;
+  font-size: 2rem;
+}
+@media (max-width: 600px) {
+  .wedding-album {
+    margin-top: 1.5rem;
+  }
+  .wedding-album__scene {
+    padding: 1rem 0 1.8rem;
+  }
+  .wedding-album__intro {
+    margin-bottom: 1rem;
+  }
+  .wedding-album__book {
+    max-width: 420px;
+  }
+  .book-photo__mount figcaption {
+    font-size: clamp(0.85rem, 3.6vw, 1.1rem);
+  }
+  .book-photo__verse {
+    font-size: 0.65rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wedding-album *,
+  .wedding-album *::before,
+  .wedding-album *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.book-cover__content::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: -8%;
+  background: linear-gradient(115deg, transparent 35%, #fff8dc66 49%, transparent 63%);
+  opacity: 0;
+  animation: album-foil 1.8s ease-out 0.4s 1;
+}
+@keyframes album-foil {
+  0% {
+    transform: translateX(-80%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(80%);
+    opacity: 0;
+  }
+}
